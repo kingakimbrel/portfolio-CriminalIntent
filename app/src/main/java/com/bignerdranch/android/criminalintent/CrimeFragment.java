@@ -104,12 +104,12 @@ public class CrimeFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode!= Activity.RESULT_OK){
+        if (resultCode != Activity.RESULT_OK) {
             return;
         }
 
-        if(requestCode==REQUEST_DATE){
-            Date date =(Date)data.getSerializableExtra(DatePickerFragment.EXTRA_CRIME_DATE);
+        if (requestCode == REQUEST_DATE) {
+            Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_CRIME_DATE);
             mCrime.setDate(date);
             updateDate(mCrime.getDate().toString());
         }
