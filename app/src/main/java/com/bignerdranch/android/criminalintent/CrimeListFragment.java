@@ -80,8 +80,10 @@ public class CrimeListFragment extends Fragment {
         List<Crime> crimes = lab.getCrimes();
 
         if (crimes.size() > 0) {
+
             this.mCrimeRecyclerView.setVisibility(View.VISIBLE);
             this.mEmptyView.setVisibility(View.GONE);
+
             if (this.mAdapter == null) {
                 this.mAdapter = new CrimeAdapter(crimes);
                 this.mCrimeRecyclerView.setAdapter(mAdapter);
@@ -89,6 +91,7 @@ public class CrimeListFragment extends Fragment {
                 //this.mAdapter.notifyItemChanged(mItemUpdatedPosition);
                 this.mAdapter.notifyDataSetChanged();
             }
+
         }else{
             this.mCrimeRecyclerView.setVisibility(View.GONE);
             this.mEmptyView.setVisibility(View.VISIBLE);
