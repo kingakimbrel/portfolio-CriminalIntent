@@ -88,11 +88,12 @@ public class CrimeListFragment extends Fragment {
                 this.mAdapter = new CrimeAdapter(crimes);
                 this.mCrimeRecyclerView.setAdapter(mAdapter);
             } else {
+                this.mAdapter.setCrimes(crimes);
                 //this.mAdapter.notifyItemChanged(mItemUpdatedPosition);
                 this.mAdapter.notifyDataSetChanged();
             }
 
-        }else{
+        } else {
             this.mCrimeRecyclerView.setVisibility(View.GONE);
             this.mEmptyView.setVisibility(View.VISIBLE);
         }
@@ -207,6 +208,10 @@ public class CrimeListFragment extends Fragment {
         @Override
         public int getItemCount() {
             return mCrimes.size();
+        }
+
+        public void setCrimes(List<Crime> crimes) {
+            mCrimes = crimes;
         }
     }
 }
