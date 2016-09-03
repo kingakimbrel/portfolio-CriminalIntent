@@ -1,5 +1,7 @@
 package com.bignerdranch.android.criminalintent;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -30,6 +32,7 @@ public class CrimeListFragment extends Fragment {
     private CrimeAdapter mAdapter;
     private int mItemUpdatedPosition;
     private boolean mSubtitleVisible;
+    private Callbacks mCallbacks;
 
     private static final String ARG_SUBTITLE_VISIBLE = "com.bignerdranch.android.crimeintent.subtitle";
 
@@ -40,6 +43,22 @@ public class CrimeListFragment extends Fragment {
         CrimeListFragment fragment = new CrimeListFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public interface Callbacks {
+        void onCrimeSelected(Crime crime);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = null;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mCallbacks = (Callbacks) activity;
     }
 
     @Override
@@ -126,8 +145,8 @@ public class CrimeListFragment extends Fragment {
             case R.id.menu_item_new_crime:
                 Crime crime = new Crime();
                 CrimeLab.getCrimeLab(getActivity()).add(crime);
-                Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId(), mSubtitleVisible);
-                startActivity(intent);
+                updateUI();
+                mCallbacks.onCrimeSelected(crime);
                 return true;
             case R.id.menu_item_show_subtitle:
                 mSubtitleVisible = !mSubtitleVisible;
@@ -179,8 +198,7 @@ public class CrimeListFragment extends Fragment {
         @Override
         public void onClick(View view) {
             mItemUpdatedPosition = getAdapterPosition();
-            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId(), mSubtitleVisible);
-            startActivity(intent);
+            mCallbacks.onCrimeSelected(mCrime);
         }
     }
 

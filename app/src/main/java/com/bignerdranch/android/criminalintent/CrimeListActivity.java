@@ -10,7 +10,7 @@ import java.util.UUID;
 /**
  * Created by kingakimbrel on 8/12/16.
  */
-public class CrimeListActivity extends SingleFragmentActivity {
+public class CrimeListActivity extends SingleFragmentActivity implements CrimeListFragment.Callbacks {
 
     private static final String EXTRA_SUBTITLE_VISIBLE = "com.bignerdranch.android.crimeintent.subtitle";
 
@@ -20,9 +20,27 @@ public class CrimeListActivity extends SingleFragmentActivity {
         return CrimeListFragment.newInstance(getIntent().getBooleanExtra(EXTRA_SUBTITLE_VISIBLE, false));
     }
 
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_masterdetail;
+    }
+
     public static Intent newIntent(Context packageContext, boolean subVisible) {
         Intent intent = new Intent(packageContext, CrimeListActivity.class);
         intent.putExtra(EXTRA_SUBTITLE_VISIBLE, subVisible);
         return intent;
+    }
+
+    @Override
+    public void onCrimeSelected(Crime crime) {
+        if (findViewById(R.id.detail_fragment_container) == null) {
+            Intent intent = CrimePagerActivity.newIntent(this, crime.getId());
+            startActivity(intent);
+        } else {
+            Fragment newDetail = CrimeFragment.newInstance(crime.getId());
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.detail_fragment_container, newDetail)
+                    .commit();
+        }
     }
 }
