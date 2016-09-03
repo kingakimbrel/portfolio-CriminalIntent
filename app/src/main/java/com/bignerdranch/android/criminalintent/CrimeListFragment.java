@@ -94,7 +94,7 @@ public class CrimeListFragment extends Fragment {
         outState.putBoolean(ARG_SUBTITLE_VISIBLE, mSubtitleVisible);
     }
 
-    private void updateUI() {
+    public void updateUI() {
         CrimeLab lab = CrimeLab.getCrimeLab(getActivity());
         List<Crime> crimes = lab.getCrimes();
 

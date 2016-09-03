@@ -10,7 +10,7 @@ import java.util.UUID;
 /**
  * Created by kingakimbrel on 8/12/16.
  */
-public class CrimeListActivity extends SingleFragmentActivity implements CrimeListFragment.Callbacks {
+public class CrimeListActivity extends SingleFragmentActivity implements CrimeListFragment.Callbacks, CrimeFragment.Callbacks {
 
     private static final String EXTRA_SUBTITLE_VISIBLE = "com.bignerdranch.android.crimeintent.subtitle";
 
@@ -42,5 +42,12 @@ public class CrimeListActivity extends SingleFragmentActivity implements CrimeLi
                     .replace(R.id.detail_fragment_container, newDetail)
                     .commit();
         }
+    }
+
+    @Override
+    public void onCrimeUpdate(Crime crime) {
+        CrimeListFragment listFragment = (CrimeListFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.fragment_container);
+        listFragment.updateUI();
     }
 }

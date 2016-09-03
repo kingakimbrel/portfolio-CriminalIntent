@@ -16,7 +16,7 @@ import java.util.UUID;
 /**
  * Created by kingakimbrel on 8/16/16.
  */
-public class CrimePagerActivity extends AppCompatActivity {
+public class CrimePagerActivity extends AppCompatActivity implements CrimeFragment.Callbacks {
 
     private ViewPager mViewPager;
     private List<Crime> mCrimes;
@@ -82,5 +82,10 @@ public class CrimePagerActivity extends AppCompatActivity {
     public Intent getParentActivityIntent() {
         Intent intent = CrimeListActivity.newIntent(this, mSubtitleVisible);
         return intent;
+    }
+
+    @Override
+    public void onCrimeUpdate(Crime crime) {
+
     }
 }
