@@ -109,10 +109,10 @@ public class CrimeLab {
         return new CrimeCursorWrapper(cursor);
     }
 
-    public File getPhotoFile(Crime crime){
-        File externalFilesDir=mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+    public File getPhotoFile(Crime crime) {
+        File externalFilesDir = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
-        if(externalFilesDir==null){
+        if (externalFilesDir == null) {
             return null;
         }
 
